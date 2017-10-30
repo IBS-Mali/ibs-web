@@ -772,7 +772,7 @@ header .row {
   width: 100%;
 }
 .Reviews-area {
-  background: rgba(0, 0, 0, 0) url("img/background/bg2-.jpg") no-repeat scroll center top / cover ;
+  background: rgba(0, 0, 0, 0) url("img/background/bg2.jpg") no-repeat scroll center top / cover ;
   background-attachment: fixed;
 }
 .Reviews-content {
