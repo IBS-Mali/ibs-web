@@ -1,1 +1,1 @@
-# bcorp
+# IBS-Mali
