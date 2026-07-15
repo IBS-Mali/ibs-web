@@ -20,8 +20,35 @@ jQuery(document).ready(function($){
 	function initHeadline() {
 		//insert <i> element for each letter of a changing word
 		singleLetters($('.cd-headline.letters').find('b'));
+		// fix width for loading-bar headlines
+		$('.cd-headline.loading-bar').each(function(){
+			setLoadingBarWidth($(this));
+		});
 		//initialise headline animation
 		animateHeadline($('.cd-headline'));
+	}
+
+	function setLoadingBarWidth(headline) {
+		var spanWrapper = headline.find('.cd-words-wrapper'),
+			words = spanWrapper.find('b'),
+			maxWidth = 0,
+			measure = $('<span>').css({
+				position: 'absolute',
+				visibility: 'hidden',
+				whiteSpace: 'nowrap',
+				fontSize: headline.css('font-size'),
+				fontWeight: '700',
+				fontFamily: headline.css('font-family')
+			}).appendTo('body');
+
+		words.each(function(){
+			measure.text($(this).text());
+			var wordWidth = measure.outerWidth();
+			if (wordWidth > maxWidth) maxWidth = wordWidth;
+		});
+
+		measure.remove();
+		spanWrapper.css('min-width', maxWidth + 8);
 	}
 
 	function singleLetters($words) {
@@ -45,6 +72,7 @@ jQuery(document).ready(function($){
 			
 			if(headline.hasClass('loading-bar')) {
 				duration = barAnimationDelay;
+				setLoadingBarWidth(headline);
 				setTimeout(function(){ headline.find('.cd-words-wrapper').addClass('is-loading') }, barWaiting);
 			} else if (headline.hasClass('clip')){
 				var spanWrapper = headline.find('.cd-words-wrapper'),

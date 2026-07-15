@@ -136,7 +136,7 @@ header {
   max-width: 800px;
 }
 
-.header-bottom .cd-headline b {
+.header-bottom .cd-headline:not(.hero-headline) b {
   font-size: clamp(1.1rem, 2.5vw, 1.5rem);
   opacity: 0.95;
 }
@@ -153,33 +153,38 @@ header {
 }
 
 .hero-headline {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.35em 0.5em;
+  display: block;
   font-size: clamp(1.35rem, 3.5vw, 2.25rem);
   font-weight: 600;
-  line-height: 1.35;
+  line-height: 1.5;
   margin-bottom: 28px;
   max-width: 900px;
 }
 
 .hero-headline .cd-headline-prefix {
   color: rgba(255, 255, 255, 0.92);
-  display: inline-block;
+  display: inline;
   font-weight: 400;
-  padding: 0;
+  white-space: nowrap;
 }
 
 .hero-headline .cd-words-wrapper {
   display: inline-block;
-  min-height: 1.4em;
+  min-height: 1.5em;
   overflow: hidden;
+  position: relative;
+  text-align: left;
   vertical-align: bottom;
 }
 
 .hero-headline .cd-words-wrapper b {
+  display: inline-block;
+  left: 0;
+  opacity: 0;
+  position: absolute;
   top: 0;
+  visibility: hidden;
+  white-space: nowrap;
   background: linear-gradient(90deg, #93c5fd 0%, #ffffff 55%, #7dd3fc 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -188,8 +193,23 @@ header {
   font-size: inherit;
   font-weight: 700;
   letter-spacing: -0.01em;
-  opacity: 1;
   text-shadow: none;
+}
+
+.hero-headline .cd-words-wrapper b.is-visible {
+  opacity: 1;
+  position: relative;
+  visibility: visible;
+}
+
+.hero-headline .cd-words-wrapper b.is-hidden {
+  opacity: 0;
+  position: absolute;
+  visibility: hidden;
+}
+
+.hero-headline.loading-bar .cd-words-wrapper b {
+  top: 0 !important;
 }
 
 .hero-headline.loading-bar .cd-words-wrapper::after {
@@ -919,13 +939,14 @@ header {
   }
 
   .hero-headline {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.15em;
+    line-height: 1.45;
   }
 
   .hero-headline .cd-words-wrapper {
+    display: block;
+    margin-top: 4px;
     min-height: 1.5em;
+    width: 100% !important;
   }
 
   .custom-btn {
