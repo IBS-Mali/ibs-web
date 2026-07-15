@@ -1,9 +1,9 @@
 jQuery(document).ready(function($){
 	//set animation timing
-	var animationDelay = 2500,
+	var animationDelay = 2800,
 		//loading bar effect
-		barAnimationDelay = 3800,
-		barWaiting = barAnimationDelay - 3000, //3000 is the duration of the transition on the loading bar - set in the scss/css file
+		barAnimationDelay = 2800,
+		barWaiting = barAnimationDelay - 2200,
 		//letters effect
 		lettersDelay = 50,
 		//type effect
@@ -48,8 +48,13 @@ jQuery(document).ready(function($){
 				setTimeout(function(){ headline.find('.cd-words-wrapper').addClass('is-loading') }, barWaiting);
 			} else if (headline.hasClass('clip')){
 				var spanWrapper = headline.find('.cd-words-wrapper'),
-					newWidth = spanWrapper.width() + 10
-				spanWrapper.css('width', newWidth);
+					words = spanWrapper.find('b'),
+					maxWidth = 0;
+				words.each(function(){
+					var wordWidth = $(this).width();
+					if (wordWidth > maxWidth) maxWidth = wordWidth;
+				});
+				spanWrapper.css('width', maxWidth + 10);
 			} else if (!headline.hasClass('type') ) {
 				//assign to .cd-words-wrapper the width of its longest word
 				var words = headline.find('.cd-words-wrapper b'),
@@ -84,7 +89,8 @@ jQuery(document).ready(function($){
 			showLetter(nextWord.find('i').eq(0), nextWord, bool, lettersDelay);
 
 		}  else if($word.parents('.cd-headline').hasClass('clip')) {
-			$word.parents('.cd-words-wrapper').animate({ width : '2px' }, revealDuration, function(){
+			var wrapper = $word.parents('.cd-words-wrapper');
+			wrapper.animate({ width : '2px' }, revealDuration, function(){
 				switchWord($word, nextWord);
 				showWord(nextWord);
 			});

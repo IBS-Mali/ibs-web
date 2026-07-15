@@ -131,6 +131,28 @@ Page Scroll
 		scrollSpeed: 900,
 		animation: 'fade'
 	});
-	
+
+/*---------------------
+ Contact form
+--------------------- */
+	$('#contact-form').on('submit', function (event) {
+		event.preventDefault();
+		var name = $.trim($('#contact-name').val());
+		var email = $.trim($('#contact-email').val());
+		var subject = $.trim($('#contact-subject').val()) || 'Contact depuis le site IBS-Mali';
+		var message = $.trim($('#contact-message').val());
+
+		if (!name || !email || !message) {
+			return;
+		}
+
+		var body = 'Nom : ' + name + '\nEmail : ' + email + '\n\n' + message;
+		var mailto = 'mailto:ibsmlisarl@gmail.com'
+			+ '?subject=' + encodeURIComponent(subject)
+			+ '&body=' + encodeURIComponent(body);
+
+		window.location.href = mailto;
+	});
+
 
 })(jQuery); 
